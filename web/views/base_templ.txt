@@ -1,0 +1,2 @@
+<!doctype html><html lang=\"en\"><head><title>Todo App</title><link href=\"/static/css/style.css\" rel=\"stylesheet\"></head><body class=\"bg-gray-100\"><main class=\"mx-auto max-w-screen-md\">
+</main><script src=\"/static/js/htmx.min.js\"></script></body></html>

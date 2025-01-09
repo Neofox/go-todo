@@ -1,0 +1,29 @@
+package views
+
+import "todo/web/components"
+
+templ Test() {
+	@Base() {
+		<div class="flex flex-col gap-4">
+			<p>Test test</p>
+			@components.Todo()
+			@components.Button(components.ButtonProps{Label: "Click to add a todo"})
+		</div>
+	}
+}
+
+templ Hello(name string) {
+	@Base() {
+		<div class="">
+			<h1 class="text-3xl font-bold">Hello, { name }!!!</h1>
+			@Form()
+		</div>
+	}
+}
+
+templ Form() {
+	<div class="flex flex-col gap-4">
+		<p>Form</p>
+		@components.Button(components.ButtonProps{Label: "Click me"})
+	</div>
+}
