@@ -1,7 +1,0 @@
-<button class=\"
-\"
->
-</button>
-<input class=\"border border-gray-300 rounded-md p-2 w-full outline-none pl-4\" placeholder=\"
-\"
->

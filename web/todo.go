@@ -1,7 +1,7 @@
 package web
 
 import (
-	"fmt"
+	"log/slog"
 	"net/http"
 
 	"todo/internal/service"
@@ -36,7 +36,7 @@ func (c TodoController) HandlePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(todo)
+	slog.Info("Todo created", "todo", todo)
 
 	component := views.TodoCreated(todo)
 	component.Render(r.Context(), w)

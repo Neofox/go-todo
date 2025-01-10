@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log/slog"
 
 	"todo/internal/server"
 )
@@ -11,11 +11,11 @@ const (
 )
 
 func main() {
-	fmt.Println("Starting server on port", port)
+	slog.Info("Starting server on port", "port", port)
 
 	server := server.NewServer(port)
 	err := server.Start()
 	if err != nil {
-		fmt.Println("Error starting server:", err)
+		slog.Error("Error starting server:", "error", err)
 	}
 }
