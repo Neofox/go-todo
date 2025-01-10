@@ -1,4 +1,4 @@
-package web
+package controller
 
 import (
 	"log/slog"
@@ -11,7 +11,7 @@ import (
 )
 
 type TodoController struct {
-	S service.TodoService
+	S *service.TodoService
 }
 
 func (c TodoController) HandleGet(w http.ResponseWriter, r *http.Request) {

@@ -8,11 +8,15 @@ import (
 	"time"
 )
 
+// Server is the main server struct
+// This is just boilerplate code to get the server running
 type Server struct {
 	port       int
 	httpServer *http.Server
 }
 
+// NewServer is the constructor for the Server struct
+// It sets up the server and returns it
 func NewServer(port int) *Server {
 	NewServer := &Server{port: port}
 

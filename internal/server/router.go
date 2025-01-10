@@ -5,8 +5,9 @@ import (
 
 	"github.com/a-h/templ"
 
+	"todo/internal/middleware"
 	"todo/internal/service"
-	"todo/web"
+	"todo/web/controller"
 	"todo/web/views"
 )
 
@@ -26,17 +27,15 @@ func (s *Server) RegisterRoutes() http.Handler {
 		Handler    http.Handler
 		Middleware []Middleware
 	}{
+		// templ handler example
 		"/": {
 			Handler:    templ.Handler(views.Home()),
 			Middleware: []Middleware{},
 		},
-		"/helloworld": {
-			Handler:    http.HandlerFunc(web.HelloWorld),
-			Middleware: []Middleware{},
-		},
+		// resource handler example
 		"/todos/": {
 			Handler:    http.StripPrefix("/todos", todoHandler(http.NewServeMux())),
-			Middleware: []Middleware{},
+			Middleware: []Middleware{middleware.Logger},
 		},
 	}
 
@@ -50,8 +49,11 @@ func (s *Server) RegisterRoutes() http.Handler {
 	return router
 }
 
+// todo resource handler
+// TODO: maybe move this to a separate file later?
 func todoHandler(router *http.ServeMux) http.Handler {
-	controller := web.TodoController{S: *service.NewTodoService()}
+	service := service.NewTodoService()
+	controller := controller.TodoController{S: service}
 
 	router.HandleFunc("GET /", controller.HandleGet)
 	router.HandleFunc("POST /", controller.HandlePost)

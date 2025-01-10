@@ -6,11 +6,14 @@ import (
 	"github.com/google/uuid"
 )
 
-// New in-memory repository implementation
+// TodoRepo is a example of a repository implementation for the Todo entity
+// in-memory repository implementation
 type TodoRepo struct {
 	todos map[uuid.UUID]e.Todo
 }
 
+// This is the constructor for the TodoRepo struct
+// It initializes the repository and returns it
 func NewTodoRepo() *TodoRepo {
 	return &TodoRepo{
 		todos: make(map[uuid.UUID]e.Todo),
