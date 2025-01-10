@@ -1,0 +1,38 @@
+package components
+
+type ButtonVariant int
+
+const (
+	ButtonPrimary ButtonVariant = iota
+	ButtonSecondary
+	ButtonDanger
+)
+
+func buttonStyle(variant ButtonVariant) string {
+	switch variant {
+	case ButtonPrimary:
+		return "bg-green-500 text-white px-4 py-2 rounded-md border border-green-500 hover:bg-green-400"
+	case ButtonSecondary:
+		return "bg-gray-500 text-white px-4 py-2 rounded-md border border-gray-500 hover:bg-gray-400"
+	case ButtonDanger:
+		return "bg-red-500 text-white px-4 py-2 rounded-md border border-red-500 hover:bg-red-400"
+	}
+	return ""
+}
+
+templ Button(content string, variant ButtonVariant, attrs templ.Attributes) {
+	<button
+		class={ buttonStyle(variant) }
+		{ attrs... }
+	>
+		{ content }
+	</button>
+}
+
+templ Input(placeholder string, attrs templ.Attributes) {
+	<input
+		class="border border-gray-300 rounded-md p-2 w-full outline-none pl-4"
+		placeholder={ placeholder }
+		{ attrs... }
+	/>
+}

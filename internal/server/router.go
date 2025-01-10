@@ -5,6 +5,7 @@ import (
 
 	"github.com/a-h/templ"
 
+	"todo/internal/service"
 	"todo/web"
 	"todo/web/views"
 )
@@ -26,15 +27,15 @@ func (s *Server) RegisterRoutes() http.Handler {
 		Middleware []Middleware
 	}{
 		"/": {
-			Handler:    http.HandlerFunc(s.handleRoot),
-			Middleware: []Middleware{},
-		},
-		"/todos": {
-			Handler:    templ.Handler(views.Test()),
+			Handler:    templ.Handler(views.Home()),
 			Middleware: []Middleware{},
 		},
 		"/helloworld": {
 			Handler:    http.HandlerFunc(web.HelloWorld),
+			Middleware: []Middleware{},
+		},
+		"/todos/": {
+			Handler:    http.StripPrefix("/todos", todoHandler(http.NewServeMux())),
 			Middleware: []Middleware{},
 		},
 	}
@@ -49,6 +50,12 @@ func (s *Server) RegisterRoutes() http.Handler {
 	return router
 }
 
-func (s *Server) handleRoot(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, World! from handlerfunc"))
+func todoHandler(router *http.ServeMux) http.Handler {
+	controller := web.TodoController{S: *service.NewTodoService()}
+
+	router.HandleFunc("GET /", controller.HandleGet)
+	router.HandleFunc("POST /", controller.HandlePost)
+	router.HandleFunc("DELETE /{id}", controller.HandleDelete)
+
+	return router
 }
