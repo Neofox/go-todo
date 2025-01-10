@@ -1,20 +1,16 @@
-.PHONY: tailwind-watch
 tailwind-watch:
 	tailwindcss -i ./static/css/input.css -o ./static/css/style.css --watch
 
-.PHONY: tailwind-build
 tailwind-build:
-	tailwindcss -i ./static/css/input.css -o ./static/css/style.css
+	tailwindcss -i ./static/css/input.css -o ./static/css/style.css --minify
 
-.PHONY: templ-watch
 templ-watch:
-	templ generate --proxy="http://localhost:8080" --watch -v
+	templ generate --proxy="http://localhost:8080" --watch
 
-.PHONY: templ-generate
 templ-generate:
 	templ generate
 
-.PHONY: build	
+# build the project for production
 build:
 	make templ-generate
 	make tailwind-build
@@ -22,12 +18,8 @@ build:
 
 
 # live reload
-.PHONY: live
 live: 
-	make -j4 live/templ live/server live/tailwind live/sync_assets
-
-live/templ:
-	make templ-watch
+	make -j4 templ-watch tailwind-watch live/server live/sync_assets
 
 live/server:
 	ENV=development air \
@@ -47,5 +39,5 @@ live/sync_assets:
 	--build.exclude_dir="" \
 	--misc.clean_on_exit=true
 
-live/tailwind:
-	make tailwind-watch
+
+.PHONY: tailwind-watch tailwind-build templ-watch templ-generate live build

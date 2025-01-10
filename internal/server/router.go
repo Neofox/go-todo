@@ -5,7 +5,9 @@ import (
 
 	"github.com/a-h/templ"
 
-	"todo/web"
+	"todo/internal/middleware"
+	"todo/internal/service"
+	"todo/web/controller"
 	"todo/web/views"
 )
 
@@ -25,17 +27,15 @@ func (s *Server) RegisterRoutes() http.Handler {
 		Handler    http.Handler
 		Middleware []Middleware
 	}{
+		// templ handler example
 		"/": {
-			Handler:    http.HandlerFunc(s.handleRoot),
+			Handler:    templ.Handler(views.Home()),
 			Middleware: []Middleware{},
 		},
-		"/todos": {
-			Handler:    templ.Handler(views.Test()),
-			Middleware: []Middleware{},
-		},
-		"/helloworld": {
-			Handler:    http.HandlerFunc(web.HelloWorld),
-			Middleware: []Middleware{},
+		// resource handler example
+		"/todos/": {
+			Handler:    http.StripPrefix("/todos", todoHandler(http.NewServeMux())),
+			Middleware: []Middleware{middleware.Logger},
 		},
 	}
 
@@ -49,6 +49,15 @@ func (s *Server) RegisterRoutes() http.Handler {
 	return router
 }
 
-func (s *Server) handleRoot(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, World! from handlerfunc"))
+// todo resource handler
+// TODO: maybe move this to a separate file later?
+func todoHandler(router *http.ServeMux) http.Handler {
+	service := service.NewTodoService()
+	controller := controller.TodoController{S: service}
+
+	router.HandleFunc("GET /", controller.HandleGet)
+	router.HandleFunc("POST /", controller.HandlePost)
+	router.HandleFunc("DELETE /{id}", controller.HandleDelete)
+
+	return router
 }

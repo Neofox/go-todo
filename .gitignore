@@ -1,3 +1,8 @@
+.DS_Store
+
+#build files
 /tmp
 
-.DS_Store
+# development files
+*_templ.txt
+static/css/style.css

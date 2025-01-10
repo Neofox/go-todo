@@ -3,15 +3,20 @@ package server
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"time"
 )
 
+// Server is the main server struct
+// This is just boilerplate code to get the server running
 type Server struct {
 	port       int
 	httpServer *http.Server
 }
 
+// NewServer is the constructor for the Server struct
+// It sets up the server and returns it
 func NewServer(port int) *Server {
 	NewServer := &Server{port: port}
 
@@ -35,7 +40,7 @@ func (s *Server) Stop() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	fmt.Println("Stopping server...")
+	slog.Info("Stopping server...")
 
 	return s.httpServer.Shutdown(ctx)
 }

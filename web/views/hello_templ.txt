@@ -1,7 +1,0 @@
-<div class=\"flex flex-col gap-4\"><p>Test test</p>
-</div>
-<div class=\"\"><h1 class=\"text-3xl font-bold\">Hello, 
-!!!</h1>
-</div>
-<div class=\"flex flex-col gap-4\"><p>Form</p>
-</div>
