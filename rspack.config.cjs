@@ -1,4 +1,5 @@
 const path = require("path");
+const { RspackManifestPlugin } = require("rspack-manifest-plugin");
 
 /** @type {import('@rspack/cli').Configuration} */
 const config = {
@@ -8,6 +9,16 @@ const config = {
     output: {
         path: path.resolve(__dirname, "static/build"),
         clean: true,
+        filename: "[name].[contenthash].js",
+        chunkFilename: "chunks/[name].[contenthash].js",
+    },
+    resolve: {
+        alias: {
+            react: "preact/compat",
+            "react-dom/test-utils": "preact/test-utils",
+            "react-dom": "preact/compat",
+            "react/jsx-runtime": "preact/jsx-runtime",
+        },
     },
     module: {
         rules: [
@@ -66,6 +77,26 @@ const config = {
             publicPath: "/static/build",
         },
     },
+    optimization: {
+        splitChunks: {
+            chunks: "async",
+            minSize: 1,
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all",
+                },
+            },
+        },
+        runtimeChunk: "single",
+    },
+    plugins: [
+        new RspackManifestPlugin({
+            fileName: "manifest.json",
+            publicPath: "/static/build",
+        }),
+    ],
 };
 
 module.exports = config;

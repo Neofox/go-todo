@@ -6,6 +6,8 @@ import (
 	"log/slog"
 	"net/http"
 	"time"
+
+	"todo/web"
 )
 
 // Server is the main server struct
@@ -28,6 +30,10 @@ func NewServer(port int) *Server {
 	}
 
 	NewServer.httpServer = server
+
+	if err := web.InitAssets(); err != nil {
+		slog.Error("Failed to load asset manifest", "error", err)
+	}
 
 	return NewServer
 }

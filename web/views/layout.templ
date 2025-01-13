@@ -1,10 +1,24 @@
 package views
 
+import "todo/web"
+
 templ header(title string) {
 	<head>
 		<title>{ title }</title>
-		<link href="/static/build/main.css" rel="stylesheet"/>
+		@style()
 	</head>
+}
+
+templ script() {
+	for _, path := range web.GetScriptPaths() {
+		<script src={ path } defer></script>
+	}
+}
+
+templ style() {
+	for _, path := range web.GetStylePaths() {
+		<link href={ path } rel="stylesheet"/>
+	}
 }
 
 templ Layout(title string, children templ.Component) {
@@ -16,6 +30,6 @@ templ Layout(title string, children templ.Component) {
 				@children
 			</main>
 		</body>
-		<script src="/static/build/main.js"></script>
+		@script()
 	</html>
 }
