@@ -31,7 +31,7 @@ func NewServer(port int) *Server {
 
 	NewServer.httpServer = server
 
-	if err := web.InitAssets(); err != nil {
+	if err := web.AssetInit(); err != nil {
 		slog.Error("Failed to load asset manifest", "error", err)
 	}
 

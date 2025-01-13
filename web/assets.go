@@ -5,45 +5,84 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 )
 
+// AssetType represents the type of asset (JS or CSS)
+type AssetType string
+
+const (
+	JavaScript AssetType = ".js"
+	CSS        AssetType = ".css"
+)
+
+// AssetManifest represents the mapping of original asset names to their hashed versions
 type AssetManifest map[string]string
 
-var manifest AssetManifest
+var (
+	manifest AssetManifest
+	mu       sync.RWMutex
+)
 
-func InitAssets() error {
+// Init initializes the asset manifest
+func AssetInit() error {
+	return loadManifest()
+}
+
+// loadManifest reads and parses the asset manifest file
+func loadManifest() error {
 	manifestPath := filepath.Join("static", "build", "manifest.json")
 	data, err := os.ReadFile(manifestPath)
 	if err != nil {
 		return err
 	}
 
+	mu.Lock()
+	defer mu.Unlock()
 	return json.Unmarshal(data, &manifest)
 }
 
-func GetAssetPath(name string) string {
-	if path, ok := manifest[name]; ok {
-		return path
+// reloadManifestIfNeeded reloads the manifest in development mode
+func reloadManifestIfNeeded() {
+	if os.Getenv("APP_ENV") == "development" {
+		loadManifest()
 	}
-	return ""
 }
 
+// GetAssetPaths returns paths for assets of the specified type, excluding chunks if specified
+func GetAssetPaths(assetType AssetType, excludeChunks bool) []string {
+	reloadManifestIfNeeded()
+
+	var paths []string
+	mu.RLock()
+	defer mu.RUnlock()
+
+	for name, path := range manifest {
+		if strings.HasSuffix(name, string(assetType)) {
+			if excludeChunks && strings.Contains(path, "chunks/") {
+				continue
+			}
+			paths = append(paths, path)
+		}
+	}
+	return paths
+}
+
+// GetScriptPaths returns JavaScript files excluding chunk files
 func GetScriptPaths() []string {
-	var paths []string
-	for name, path := range manifest {
-		if strings.HasSuffix(name, ".js") && !strings.Contains(path, "chunks/") {
-			paths = append(paths, path)
-		}
-	}
-	return paths
+	return GetAssetPaths(JavaScript, true)
 }
 
+// GetStylePaths returns CSS files
 func GetStylePaths() []string {
-	var paths []string
-	for name, path := range manifest {
-		if strings.HasSuffix(name, ".css") {
-			paths = append(paths, path)
-		}
-	}
-	return paths
+	return GetAssetPaths(CSS, false)
+}
+
+// GetPath returns the path for a given asset name
+func GetPath(name string) string {
+	reloadManifestIfNeeded()
+
+	mu.RLock()
+	defer mu.RUnlock()
+	return manifest[name]
 }

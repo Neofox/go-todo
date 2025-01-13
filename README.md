@@ -1,6 +1,6 @@
 # Go Todo Application
 
-A modern todo application demonstrating clean architecture using Go, HTMX, Templ, and React components. This project serves as an example of how to structure a web application using these technologies.
+A modern todo application demonstrating clean architecture using Go, HTMX, Templ, and (P)React components. This project serves as an example of how to structure a web application using these technologies.
 
 ## 🛠 Tech Stack
 
@@ -20,7 +20,8 @@ A modern todo application demonstrating clean architecture using Go, HTMX, Templ
 │ ├── repository/ # Data access layer
 │ ├── service/ # Business logic layer
 │ ├── server/ # HTTP server configuration
-│ └── middleware/ # HTTP middleware
+│ ├── middleware/ # HTTP middleware
+│ └── assets/ # Asset management
 ├── web/
 │ ├── components/ # Reusable UI components
 │ ├── views/ # Page templates
@@ -49,7 +50,7 @@ The project follows a clean architecture pattern:
 
 - Go 1.23.4 or higher
 - Make (for running commands)
-- Air (for live reload) - `go install github.com/cosmtrek/air@latest`
+- Air (for live reload) - `go install github.com/air-verse/air@latest`
 - Templ - `go install github.com/a-h/templ/cmd/templ@latest`
 - Bun (for running commands) - `brew install bun`
 
@@ -88,7 +89,7 @@ This will start:
 - Go server with hot reload
 - Templ template generation
 - TailwindCSS compilation
-- Asset synchronization
+- Asset synchronization with automatic reloading
 
 ### Building for Production
 
@@ -105,30 +106,27 @@ This will build the project for production and output the binary to the `tmp` di
 1. Create your component in `static/js/components/`:
 
     ```tsx
-    import React from 'react';
+    import { h } from 'preact';
+    import { useState } from 'preact/hooks';
 
     export function MyComponent(props) {
         return <div>My Component</div>;
     }
     ```
 
-2. Register it in `static/js/index.ts`:
-
-    ```tsx
-    const componentRegistry = {
-        MyComponent: MyComponent,
-    // Add more components here
-    };
-    ```
-
-3. Use it in your Templ templates:
+2. Use it in your Templ templates:
 
     ```go
-    <div data-react-component="MyComponent" data-react-props={ templ.JSONString(map[string]string{
-        "prop1": "value1",
-        "prop2": "value2",
-    }) }></div>
+    <div 
+        data-react-component="MyComponent" 
+        data-react-props={ templ.JSONString(map[string]string{
+            "prop1": "value1",
+            "prop2": "value2",
+        }) }
+    ></div>
     ```
+
+The component will be automatically loaded when it appears in the DOM.
 
 ## 🧪 Testing
 
