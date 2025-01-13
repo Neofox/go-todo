@@ -5,5 +5,11 @@
 
 # development files
 *_templ.txt
-static/css/style.css
-static/css/style.min.css
+
+# build files
+static/build/
+static/build/bundle.css
+static/build/bundle.js
+
+# node_modules
+node_modules/

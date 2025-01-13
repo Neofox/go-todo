@@ -44,7 +44,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	}
 
 	fileServer := http.FileServer(http.Dir("static"))
-	router.Handle("/static/", http.StripPrefix("/static/", fileServer))
+	router.Handle("/static/", http.StripPrefix("/static", fileServer))
 
 	return router
 }

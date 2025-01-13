@@ -8,11 +8,19 @@ import (
 templ Todo(todo e.Todo) {
 	<div id={ fmt.Sprintf("todo-%s", todo.ID) } class="flex justify-between items-center border-2 border-gray-300 bg-white p-4 hover:bg-gray-200 transition-colors duration-300 rounded-lg">
 		<div class="text-lg font-bold">{ todo.Title }</div>
-		@Button("Delete", ButtonDanger, templ.Attributes{
-			"hx-delete": "/todos/" + todo.ID,
-			"hx-target": fmt.Sprintf("#todo-%s", todo.ID),
-			"hx-swap":   "outerHTML",
-		})
+		<div class="flex gap-2">
+			@Button("Delete", ButtonDanger, templ.Attributes{
+				"hx-delete": "/todos/" + todo.ID,
+				"hx-target": fmt.Sprintf("#todo-%s", todo.ID),
+				"hx-swap":   "outerHTML",
+			})
+			<div
+				data-react-component="Button"
+				data-react-props={ templ.JSONString(map[string]string{
+				"id": todo.ID,
+			}) }
+			></div>
+		</div>
 	</div>
 }
 

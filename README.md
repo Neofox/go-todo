@@ -1,6 +1,6 @@
 # Go Todo Application
 
-A modern todo application demonstrating clean architecture using Go, HTMX, and Templ. This project serves as an example of how to structure a web application using these technologies.
+A modern todo application demonstrating clean architecture using Go, HTMX, Templ, and React components. This project serves as an example of how to structure a web application using these technologies.
 
 ## 🛠 Tech Stack
 
@@ -8,6 +8,8 @@ A modern todo application demonstrating clean architecture using Go, HTMX, and T
 - **HTMX** - Frontend interactivity without JavaScript
 - **Templ** - Type-safe HTML templating
 - **TailwindCSS** - Utility-first CSS framework
+- **React** - Component-based UI library
+- **Bun** - JavaScript runtime and package manager
 
 ## 📁 Project Structure
 
@@ -25,7 +27,8 @@ A modern todo application demonstrating clean architecture using Go, HTMX, and T
 │ └── controller/ # HTTP request handlers
 ├── static/
 │ ├── css/ # TailwindCSS files
-│ └── js/ # JavaScript files (HTMX)
+│ ├── js/ # TypeScript & React components
+│ └── build/ # Compiled assets
 └── main.go # Application entry point
 ```
 
@@ -38,6 +41,7 @@ The project follows a clean architecture pattern:
 3. **Service Layer** (`internal/service/`) - Implements business logic
 4. **Controller Layer** (`web/controller/`) - Handles HTTP requests
 5. **View Layer** (`web/views/` & `web/components/`) - Manages UI templates
+6. **React Components** (`static/js/components/`) - Client-side interactive components
 
 ## 🚀 Getting Started
 
@@ -47,6 +51,7 @@ The project follows a clean architecture pattern:
 - Make (for running commands)
 - Air (for live reload) - `go install github.com/cosmtrek/air@latest`
 - Templ - `go install github.com/a-h/templ/cmd/templ@latest`
+- Bun (for running commands) - `brew install bun`
 
 ### Installation
 
@@ -61,6 +66,7 @@ The project follows a clean architecture pattern:
 
     ```bash
     go mod download
+    bun install
     ```
 
 3. Build the project
@@ -92,6 +98,38 @@ make build
 
 This will build the project for production and output the binary to the `tmp` directory.
 
+## 🎯 React Components Integration
+
+### Adding New React Components
+
+1. Create your component in `static/js/components/`:
+
+    ```tsx
+    import React from 'react';
+
+    export function MyComponent(props) {
+        return <div>My Component</div>;
+    }
+    ```
+
+2. Register it in `static/js/index.ts`:
+
+    ```tsx
+    const componentRegistry = {
+        MyComponent: MyComponent,
+    // Add more components here
+    };
+    ```
+
+3. Use it in your Templ templates:
+
+    ```go
+    <div data-react-component="MyComponent" data-react-props={ templ.JSONString(map[string]string{
+        "prop1": "value1",
+        "prop2": "value2",
+    }) }></div>
+    ```
+
 ## 🧪 Testing
 
 ### Running Tests
@@ -105,9 +143,8 @@ go test ./...
 - `make live` - Start development server with live reload
 - `make build` - Build the project for production
 - `make templ-generate` - Generate Templ templates
-- `make tailwind-build` - Build TailwindCSS
-- `make tailwind-watch` - Watch TailwindCSS changes
-- `make templ-watch` - Watch Templ changes
+- `make javascript-build` - Build JavaScript/React components
+- `make javascript-watch` - Watch JavaScript changes
 
 ## 📝 License
 
