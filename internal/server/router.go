@@ -29,7 +29,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	}{
 		// templ handler example
 		"/": {
-			Handler:    templ.Handler(views.Home()),
+			Handler:    templ.Handler(views.Layout("Home", views.Home())),
 			Middleware: []Middleware{},
 		},
 		// resource handler example

@@ -71,7 +71,7 @@ func Home() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div class=\"flex flex-col gap-4\"><p>Home</p><a class=\"text-blue-500 underline\" href=\"/todos\">Todos List</a></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div class=\"flex flex-col gap-4 py-8\"><h1 class=\"text-3xl font-bold\">Hello, World!!!</h1><p>Landing Page. You can go to <a class=\"text-blue-500 underline\" href=\"/todos\">Todos List</a> from here.</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
