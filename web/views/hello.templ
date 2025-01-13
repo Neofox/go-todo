@@ -1,18 +1,14 @@
 package views
 
 templ Hello(name string) {
-	@Base() {
-		<div class="">
-			<h1 class="text-3xl font-bold">Hello, { name }!!!</h1>
-		</div>
-	}
+	<div class="">
+		<h1 class="text-3xl font-bold">Hello, { name }!!!</h1>
+	</div>
 }
 
 templ Home() {
-	@Base() {
-		<div class="flex flex-col gap-4">
-			<p>Home</p>
-			<a class="text-blue-500 underline" href="/todos">Todos List</a>
-		</div>
-	}
+	<div class="flex flex-col gap-4">
+		<p>Home</p>
+		<a class="text-blue-500 underline" href="/todos">Todos List</a>
+	</div>
 }

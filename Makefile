@@ -22,7 +22,7 @@ live:
 	make -j4 templ-watch tailwind-watch live/server live/sync_assets
 
 live/server:
-	ENV=development air \
+	APP_ENV=development air \
 	--build.cmd="go build -o tmp/main main.go" \
 	--build.bin="tmp/main" \
 	--build.delay="100" \

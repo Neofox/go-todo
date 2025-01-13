@@ -6,3 +6,4 @@
 # development files
 *_templ.txt
 static/css/style.css
+static/css/style.min.css

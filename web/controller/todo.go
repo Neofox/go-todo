@@ -23,7 +23,7 @@ func (c TodoController) HandleGet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	component := views.TodoList(todos)
-	component.Render(r.Context(), w)
+	views.Layout("Todo List", component).Render(r.Context(), w)
 }
 
 func (c TodoController) HandlePost(w http.ResponseWriter, r *http.Request) {
@@ -38,8 +38,7 @@ func (c TodoController) HandlePost(w http.ResponseWriter, r *http.Request) {
 
 	slog.Info("Todo created", "todo", todo)
 
-	component := views.TodoCreated(todo)
-	component.Render(r.Context(), w)
+	views.TodoCreated(todo).Render(r.Context(), w)
 }
 
 func (c TodoController) HandleDelete(w http.ResponseWriter, r *http.Request) {

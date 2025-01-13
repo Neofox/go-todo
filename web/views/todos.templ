@@ -6,16 +6,14 @@ import (
 )
 
 templ TodoList(todos []e.Todo) {
-	@Base() {
-		<div class="flex flex-col gap-4 p-4">
-			<div id="list" class="flex flex-col gap-2">
-				for _, todo := range todos {
-					@components.Todo(todo)
-				}
-			</div>
-			@components.AddTodo()
+	<div class="flex flex-col gap-4 p-4">
+		<div id="list" class="flex flex-col gap-2">
+			for _, todo := range todos {
+				@components.Todo(todo)
+			}
 		</div>
-	}
+		@components.AddTodo()
+	</div>
 }
 
 templ TodoCreated(todo e.Todo) {

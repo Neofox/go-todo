@@ -1,0 +1,21 @@
+package views
+
+templ header(title string) {
+	<head>
+		<title>{ title }</title>
+		<link href="/static/css/style.css" rel="stylesheet"/>
+	</head>
+}
+
+templ Layout(title string, children templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		@header(title)
+		<body class="bg-gray-100">
+			<main class="mx-auto max-w-screen-md">
+				@children
+			</main>
+			<script src="/static/js/htmx.min.js"></script>
+		</body>
+	</html>
+}
