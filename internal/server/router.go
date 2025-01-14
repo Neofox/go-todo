@@ -5,10 +5,10 @@ import (
 
 	"github.com/a-h/templ"
 
-	"todo/internal/middleware"
-	"todo/internal/service"
-	"todo/web/controller"
-	"todo/web/view"
+	"regotth/internal/middleware"
+	"regotth/internal/service"
+	"regotth/web/controller"
+	"regotth/web/view"
 )
 
 type Middleware func(http.Handler) http.Handler

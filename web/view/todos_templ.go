@@ -9,8 +9,8 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	e "todo/internal/entity"
-	components "todo/web/component"
+	e "regotth/internal/entity"
+	"regotth/web/component"
 )
 
 func TodoList(todos []e.Todo) templ.Component {
@@ -39,7 +39,7 @@ func TodoList(todos []e.Todo) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		for _, todo := range todos {
-			templ_7745c5c3_Err = components.Todo(todo).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = component.Todo(todo).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -48,7 +48,7 @@ func TodoList(todos []e.Todo) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.AddTodo().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = component.AddTodo().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -81,7 +81,7 @@ func TodoCreated(todo e.Todo) templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = components.Todo(todo).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = component.Todo(todo).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

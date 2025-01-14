@@ -1,21 +1,21 @@
 package view
 
 import (
-	e "todo/internal/entity"
-	components "todo/web/component"
+	e "regotth/internal/entity"
+	"regotth/web/component"
 )
 
 templ TodoList(todos []e.Todo) {
 	<div class="flex flex-col gap-4 p-4">
 		<div id="list" class="flex flex-col gap-2">
 			for _, todo := range todos {
-				@components.Todo(todo)
+				@component.Todo(todo)
 			}
 		</div>
-		@components.AddTodo()
+		@component.AddTodo()
 	</div>
 }
 
 templ TodoCreated(todo e.Todo) {
-	@components.Todo(todo)
+	@component.Todo(todo)
 }

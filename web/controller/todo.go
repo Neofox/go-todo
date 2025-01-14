@@ -4,10 +4,9 @@ import (
 	"log/slog"
 	"net/http"
 
-	"todo/internal/service"
-	"todo/web/view"
-
-	e "todo/internal/entity"
+	e "regotth/internal/entity"
+	"regotth/internal/service"
+	"regotth/web/view"
 )
 
 type TodoController struct {

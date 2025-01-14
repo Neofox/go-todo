@@ -1,9 +1,9 @@
 package service
 
 import (
-	"todo/internal"
-	e "todo/internal/entity"
-	r "todo/internal/repository"
+	"regotth/internal"
+	e "regotth/internal/entity"
+	r "regotth/internal/repository"
 
 	"github.com/google/uuid"
 )

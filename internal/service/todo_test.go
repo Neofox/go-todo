@@ -1,8 +1,8 @@
 package service
 
 import (
+	e "regotth/internal/entity"
 	"testing"
-	e "todo/internal/entity"
 )
 
 // mockTodoRepo is a mock implementation of the Repository interface
@@ -25,7 +25,7 @@ func (m *mockTodoRepo) GetAll() ([]e.Todo, error) {
 }
 
 func (m *mockTodoRepo) Get(id string) (e.Todo, error) {
-	todo, _ := m.todos[id]
+	todo := m.todos[id]
 	return todo, nil
 }
 

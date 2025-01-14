@@ -1,4 +1,4 @@
-module todo
+module regotth
 
 go 1.23.4
 

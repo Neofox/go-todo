@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"todo/web"
+	"regotth/web"
 )
 
 // Server is the main server struct

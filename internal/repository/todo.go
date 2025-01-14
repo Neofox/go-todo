@@ -1,7 +1,7 @@
 package repository
 
 import (
-	e "todo/internal/entity"
+	e "regotth/internal/entity"
 
 	"github.com/google/uuid"
 )

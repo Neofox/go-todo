@@ -7,7 +7,7 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"todo/internal/server"
+	"regotth/internal/server"
 )
 
 type Config struct {

@@ -1,6 +1,9 @@
-# Go Todo Application
+# The REGoTTH Stack
 
-A modern todo application demonstrating clean architecture using Go, HTMX, Templ, and (P)React components. This project serves as an example of how to structure a web application using these technologies.
+A modern web application stack for the fullstack dev that wants something different from the usual stack.
+REGoTTH stands for **Re**act, **Go**, **T**ailwind, **T**empl, and **H**TMX.
+
+This project serves as a reference implementation demonstrating how to effectively integrate these technologies in a clean and opinionated way.
 
 ## 📑 Table of Contents
 
