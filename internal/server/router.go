@@ -8,7 +8,7 @@ import (
 	"todo/internal/middleware"
 	"todo/internal/service"
 	"todo/web/controller"
-	"todo/web/views"
+	"todo/web/view"
 )
 
 type Middleware func(http.Handler) http.Handler
@@ -29,7 +29,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	}{
 		// templ handler example
 		"/": {
-			Handler:    templ.Handler(views.Layout("Home", views.Home())),
+			Handler:    templ.Handler(view.Layout("Home", view.Home())),
 			Middleware: []Middleware{},
 		},
 		// resource handler example

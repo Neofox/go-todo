@@ -2,14 +2,13 @@
 
 #build files
 /tmp
+/bin
 
 # development files
 *_templ.txt
 
 # build files
 static/build/
-static/build/bundle.css
-static/build/bundle.js
 
 # node_modules
 node_modules/

@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"todo/internal/service"
-	"todo/web/views"
+	"todo/web/view"
 
 	e "todo/internal/entity"
 )
@@ -22,8 +22,8 @@ func (c TodoController) HandleGet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	component := views.TodoList(todos)
-	views.Layout("Todo List", component).Render(r.Context(), w)
+	component := view.TodoList(todos)
+	view.Layout("Todo List", component).Render(r.Context(), w)
 }
 
 func (c TodoController) HandlePost(w http.ResponseWriter, r *http.Request) {
@@ -38,7 +38,7 @@ func (c TodoController) HandlePost(w http.ResponseWriter, r *http.Request) {
 
 	slog.Info("Todo created", "todo", todo)
 
-	views.TodoCreated(todo).Render(r.Context(), w)
+	view.TodoCreated(todo).Render(r.Context(), w)
 }
 
 func (c TodoController) HandleDelete(w http.ResponseWriter, r *http.Request) {
