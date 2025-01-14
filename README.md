@@ -85,6 +85,8 @@ The project follows a clean architecture pattern:
     git clone https://github.com/Neofox/regotth.git my-project
     cd my-project
     make rename-module NEW_NAME=github.com/username/my-project
+    rm -rf .git
+    git init
     ```
 
 2. Install dependencies
