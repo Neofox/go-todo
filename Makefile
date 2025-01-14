@@ -50,12 +50,14 @@ rename-module:
 	@echo "Current package name: $(shell jq -r .name package.json)"
 	# Update Go module
 	@go mod edit -module $(NEW_NAME)
-	@find . -type f -name '*.go' -exec perl -pi -e 's|$(CURRENT_MODULE)|$(NEW_NAME)|g' {} \;
+	# Update imports in both .go and .templ files
+	@find . -type f \( -name "*.go" -o -name "*.templ" \) -exec perl -pi -e 's|$(CURRENT_MODULE)|$(NEW_NAME)|g' {} \;
 	# Update package.json
 	@jq '.name = "$(PROJECT_NAME)"' package.json > package.json.tmp && mv package.json.tmp package.json
 	@go mod tidy
 	@echo "✓ Module renamed from $(CURRENT_MODULE) to $(NEW_NAME)"
 	@echo "✓ Package name updated to $(PROJECT_NAME)"
+	@echo "✓ Updated imports in .go and .templ files"
 
 .PHONY: help javascript-watch templ-watch live build rename-module
 
