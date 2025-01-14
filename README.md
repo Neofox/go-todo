@@ -82,7 +82,7 @@ The project follows a clean architecture pattern:
 1. Clone the repository
 
     ```bash
-    git clone https://github.com/Neofox/go-todo.git my-project
+    git clone https://github.com/Neofox/regotth.git my-project
     cd my-project
     make rename-module NEW_NAME=github.com/username/my-project
     ```
