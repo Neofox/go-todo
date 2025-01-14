@@ -138,7 +138,7 @@ This will build the project for production and output the binary to the `tmp` di
     // /!\ React has to be imported even if we don't use it!
     import React, { useState, type ReactNode } from "react";
 
-    export function MyComponent(props): ReactNode {
+    export function MyComponent(): ReactNode {
         const [count, setCount] = useState(0);
         return <div>My Component {count}</div>;
     }
@@ -146,17 +146,43 @@ This will build the project for production and output the binary to the `tmp` di
 
 2. Use it in your Templ templates:
 
-    ```go
-    <div 
-        data-react-component="MyComponent" 
-        data-react-props={ templ.JSONString(map[string]string{
-            "prop1": "value1",
-            "prop2": "value2",
-        }) }
-    ></div>
+    ```html
+    <div data-react-component="MyComponent" />
     ```
 
 The component will be automatically loaded when it appears in the DOM.
+
+### Type Generation
+
+The project automatically generates Go types from React component props, ensuring type safety between React components and Templ templates. When you create or modify a React component with props:
+
+1. Define your props interface in your React component:
+
+    ```tsx
+    export interface MyComponentProps {
+        prop1: string;
+        prop2?: number;
+    }
+    ```
+
+2. The types will be automatically generated when:
+
+    - Running `make build`
+    - During development with `make live`
+    - Manually with `bun run generate-props`
+  The generated types will be available in `web/generated/react_component_props.go`
+
+3. Use the generated types in your Templ templates:
+
+    ```html
+    <div 
+      data-react-component="Button" 
+      data-react-props={ props.ButtonProps{
+          Id: "123",
+          Label: "Click me",
+      }.String() }
+    />
+    ```
 
 ## 🧪 Testing
 

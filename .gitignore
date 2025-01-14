@@ -3,12 +3,15 @@
 #build files
 /tmp
 /bin
+static/build/
 
 # development files
 *_templ.txt
+.props-hash-cache
 
-# build files
-static/build/
+# IDE
+.idea/
+.vscode/
 
 # node_modules
 node_modules/

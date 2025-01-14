@@ -77,6 +77,9 @@ const config = {
             publicPath: "/static/build",
         },
     },
+    watchOptions: {
+        ignored: ["**/node_modules/**", "**/.git/**", "**/static/build/**", "**/*.go"],
+    },
     optimization: {
         splitChunks: {
             chunks: "async",
@@ -96,6 +99,20 @@ const config = {
             fileName: "manifest.json",
             publicPath: "/static/build",
         }),
+        {
+            apply(compiler) {
+                let isGenerating = false;
+                compiler.hooks.afterCompile.tap("GenerateProps", compilation => {
+                    if (isGenerating) return;
+                    isGenerating = true;
+
+                    const { spawnSync } = require("child_process");
+                    spawnSync("bun", ["run", "generate-props"], { stdio: "inherit" });
+
+                    isGenerating = false;
+                });
+            },
+        },
     ],
 };
 

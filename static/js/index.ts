@@ -4,7 +4,6 @@ import htmx from "htmx.org";
 
 import "../css/input.css";
 
-// Define window augmentation for htmx
 declare global {
     interface Window {
         htmx: typeof htmx;
@@ -15,14 +14,9 @@ window.htmx = htmx;
 // Store references to root instances for cleanup
 const reactRoots = new WeakMap<Element, ReturnType<typeof createRoot>>();
 
-// Initialize React component for a single element
 async function initializeReactComponent(element: Element) {
     const componentName = element.getAttribute("data-react-component");
-
-    // Skip if no component name or already initialized
-    if (!componentName || reactRoots.has(element)) {
-        return;
-    }
+    if (!componentName || reactRoots.has(element)) return;
 
     try {
         const root = createRoot(element);
@@ -42,7 +36,6 @@ async function initializeReactComponent(element: Element) {
     }
 }
 
-// Cleanup React component
 function cleanupReactComponent(element: Element) {
     const root = reactRoots.get(element);
     if (root) {
@@ -82,7 +75,6 @@ const observer = new MutationObserver(mutations => {
     });
 });
 
-// Start observing
 observer.observe(document.body, {
     childList: true,
     subtree: true,

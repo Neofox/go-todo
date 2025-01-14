@@ -1,31 +1,32 @@
 {
-  "name": "regotth",
-  "module": "static/js/index.ts",
-  "type": "module",
-  "scripts": {
-    "build": "rspack build",
-    "dev": "rspack dev"
-  },
-  "dependencies": {
-    "@preact/compat": "^18.3.1",
-    "htmx.org": "^2.0.4",
-    "preact": "^10.25.4",
-    "react": "npm:@preact/compat",
-    "react-dom": "npm:@preact/compat",
-    "tailwindcss": "^3.4.17"
-  },
-  "devDependencies": {
-    "@rspack/cli": "^1.1.8",
-    "@rspack/core": "^1.1.8",
-    "@types/bun": "^1.1.16",
-    "@types/react": "^19.0.6",
-    "@types/react-dom": "^19.0.3",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "postcss-loader": "^8.1.1",
-    "rspack-manifest-plugin": "^5.0.3"
-  },
-  "peerDependencies": {
-    "typescript": "^5.7.3"
-  }
+    "name": "regotth",
+    "module": "static/js/index.ts",
+    "type": "module",
+    "scripts": {
+        "build": "rspack build",
+        "dev": "rspack dev",
+        "generate-props": "bun run static/js/generate-props-types.ts"
+    },
+    "dependencies": {
+        "@preact/compat": "^18.3.1",
+        "htmx.org": "^2.0.4",
+        "preact": "^10.25.4",
+        "react": "npm:@preact/compat",
+        "react-dom": "npm:@preact/compat",
+        "tailwindcss": "^3.4.17"
+    },
+    "devDependencies": {
+        "@rspack/cli": "^1.1.8",
+        "@rspack/core": "^1.1.8",
+        "@types/bun": "^1.1.16",
+        "@types/react": "^19.0.6",
+        "@types/react-dom": "^19.0.3",
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.49",
+        "postcss-loader": "^8.1.1",
+        "rspack-manifest-plugin": "^5.0.3"
+    },
+    "peerDependencies": {
+        "typescript": "^5.7.3"
+    }
 }

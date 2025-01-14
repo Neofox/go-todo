@@ -3,6 +3,7 @@ package component
 import (
 	"fmt"
 	e "regotth/internal/entity"
+	props "regotth/web/generated"
 )
 
 templ Todo(todo e.Todo) {
@@ -16,9 +17,10 @@ templ Todo(todo e.Todo) {
 			})
 			<div
 				data-react-component="Button"
-				data-react-props={ templ.JSONString(map[string]string{
-				"id": todo.ID,
-			}) }
+				data-react-props={ props.ButtonProps{
+					Id: todo.ID,
+					Label: "React!",
+				}.String() }
 			></div>
 		</div>
 	</div>

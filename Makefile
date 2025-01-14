@@ -16,6 +16,7 @@ templ-watch:
 build:
 	@echo "Building project for production..."
 	@templ generate
+	@bun run generate-props
 	@bun run build
 	@go build -o bin/main main.go
 	@echo "Project built successfully. You can now run the binary in the bin directory."
@@ -34,7 +35,7 @@ live/server:
 	--build.bin="tmp/main" \
 	--build.delay="100" \
 	--build.include_ext="go" \
-	--build.exclude_dir="node_modules,static/build" \
+	--build.exclude_dir="node_modules,static,bin" \
 	--misc.clean_on_exit=true
 
 # Setup commands
