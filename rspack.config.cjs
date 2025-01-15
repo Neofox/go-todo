@@ -78,7 +78,7 @@ const config = {
         },
     },
     watchOptions: {
-        ignored: ["**/node_modules/**", "**/.git/**", "**/static/build/**", "**/*.go"],
+        ignored: ["**/node_modules/**", "**/.git/**", "**/static/build/**", "**/*.go", "**/*.templ"],
     },
     optimization: {
         splitChunks: {
