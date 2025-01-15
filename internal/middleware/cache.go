@@ -6,6 +6,7 @@ import (
 	"io"
 	"log/slog"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 )
@@ -25,6 +26,12 @@ var DefaultCacheConfig = CacheConfig{
 func Cache(cfg CacheConfig) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+			if os.Getenv("APP_ENV") == "development" {
+				w.Header().Set("Cache-Control", "no-store")
+				next.ServeHTTP(w, r)
+				return
+			}
 
 			bodyContent, err := io.ReadAll(r.Body)
 			defer r.Body.Close()
