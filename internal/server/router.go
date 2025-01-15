@@ -37,6 +37,13 @@ func (s *Server) RegisterRoutes() http.Handler {
 			Handler:    http.StripPrefix("/todos", todoHandler(http.NewServeMux())),
 			Middleware: []Middleware{middleware.Logger},
 		},
+
+		"GET /robots.txt": {
+			Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.Write([]byte("User-agent: *\nAllow: /"))
+			}),
+			Middleware: []Middleware{},
+		},
 	}
 
 	for path, handler := range routes {
@@ -44,7 +51,9 @@ func (s *Server) RegisterRoutes() http.Handler {
 	}
 
 	fileServer := http.FileServer(http.Dir("static"))
-	router.Handle("/static/", http.StripPrefix("/static", fileServer))
+	router.Handle("/static/", http.StripPrefix("/static", applyMiddleware(fileServer, []Middleware{
+		middleware.Cache(middleware.DefaultCacheConfig),
+	})))
 
 	return applyMiddleware(router, []Middleware{middleware.Compress})
 }
