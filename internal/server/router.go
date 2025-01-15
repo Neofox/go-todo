@@ -46,7 +46,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	fileServer := http.FileServer(http.Dir("static"))
 	router.Handle("/static/", http.StripPrefix("/static", fileServer))
 
-	return router
+	return applyMiddleware(router, []Middleware{middleware.Compress})
 }
 
 // todo resource handler
