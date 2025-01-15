@@ -31,8 +31,8 @@ live:
 
 live/server:
 	@APP_ENV=development air \
-	--build.cmd="go build -o bin/main main.go && templ generate --notify-proxy" \
-	--build.bin="bin/main" \
+	--build.cmd="go build -o tmp/main main.go && templ generate --notify-proxy" \
+	--build.bin="tmp/main" \
 	--build.delay="100" \
 	--build.include_ext="go" \
 	--build.exclude_dir="node_modules,static,bin" \
