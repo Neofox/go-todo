@@ -9,6 +9,7 @@ templ header(title string) {
 		<meta charset="utf-8"/>
 		<meta name="description" content="Regotth is a simple todo list app built with Templ and React."/>
 		@style()
+		@script()
 	</head>
 }
 
@@ -33,6 +34,5 @@ templ Layout(title string, children templ.Component) {
 				@children
 			</main>
 		</body>
-		@script()
 	</html>
 }
